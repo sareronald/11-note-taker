@@ -11,15 +11,14 @@ const PORT = process.env.PORT || 8080;
 // Set up the Express App to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("public"));
 
 // ROUTES
 // =======================================================
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
+// index.html is the default file
 
 app.get("/notes", function (req, res) {
-  res.sendFile(path.join(__dirname, "notes.html"));
+  res.sendFile(path.join(__dirname, "/public/notes.html"));
 });
 
 // API GET request
@@ -29,6 +28,16 @@ app.get("/api/notes", function (req, res) {
 
 // ADD, SAVE, DELETE from DATABASE
 // =======================================================
+// app.post("/api/notes", function (req, res){
+// const newNote = req.body;
+// what is req.body? Body of the request - expecting to have some parameters and these sit in the body
+// req = request
+// });
+// $.post("/api/characters", newCharacter)
+// .then(function(data) {
+// console.log("add.html", data);
+// alert("Adding character...");
+//   });
 
 // LISTENER
 // =======================================================
