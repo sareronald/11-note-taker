@@ -58,17 +58,32 @@ app.post("/api/notes", function (req, res) {
 
 // DELETE from DATABASE
 // =======================================================
-// app.delete("/api/notes/:id", function (req, res) {
-//   console.log(req.params);
-//   let id = req.params.id;
-//   console.log(id);
-//   //  can not use newNote in line below...
-//   const deleteNote = notesDb.find((deleteNote) => newNote.id === id);
-//   if (deleteNote) {
-//     return res.json(deleteNote);
-//   }
-//   return res.send("No ID found");
-// });
+app.delete("/api/notes/:id", function (req, res) {
+  console.log(req.params);
+  const chosenID = req.params.id;
+  console.log(chosenID);
+  const deleteNote = notesDb.find((id) => id.id === chosenID);
+  if (deleteNote) {
+    // what is my index here - it is not id, it is not notesDB,
+    // it is deleting any note, not the one that equals the correct id
+    // this if condition is not working... it is always true?
+    // should this be find of findIndex
+    notesDb.splice(deleteNote, 1);
+
+    fs.writeFileSync(
+      path.resolve("./db/db.json"),
+      JSON.stringify(notesDb),
+      (err) => {
+        if (err) throw err;
+        console.log("Deleting note...");
+      }
+    );
+    return notesDb;
+  }
+  console.log(notesDb);
+
+  return res.send("No ID found");
+});
 
 // LISTENER
 // =======================================================
