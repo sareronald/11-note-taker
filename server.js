@@ -25,8 +25,8 @@ app.get("/notes", (req, res) => {
 
 // API GET request
 app.get("/api/notes", (req, res) => {
-  // do I need to return this? ReferenceError notesBD is not defined
-  res.json(notesDb);
+  res.json(JSON.parse(fs.readFileSync("./db/db.json")));
+  // res.json(notesDb);
 });
 
 // ADD & SAVE from DATABASE
@@ -63,10 +63,9 @@ app.delete("/api/notes/:id", function (req, res) {
   console.log(req.params);
   const chosenID = req.params.id;
   console.log(chosenID);
-  // Read all notes
+  // Read all notes and filters the notes that do not match the chosenID
   const newDB = notesDb.filter((savedNote) => savedNote.id != chosenID);
   // your formula would be to return each value into the new array if it does not match the id of the record to be deleted
-  // notesDb.splice(savedNote, 1);
   // Writes remaining notes to db.json
   fs.writeFileSync(
     path.resolve("./db/db.json"),
@@ -74,16 +73,17 @@ app.delete("/api/notes/:id", function (req, res) {
     (err) => {
       if (err) throw err;
       console.log(`Deleting note ${chosenID}...`);
+      // return true;
     }
   );
   res.send(newDB);
-  // return newDB;
 });
 
 // Default Route
-// app.get("*", function (req, res) {
-//   res.sendFile(path.join(__dirname, "public/index.html"));
-// });
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
+
 // LISTENER
 // =======================================================
 // Starts the server
