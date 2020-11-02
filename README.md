@@ -60,7 +60,7 @@ This responsive application consists of the following files:
 
 ## Link to the App
 
-Please visit the <a href="https://">Note Taker site</a> hosted on Heroku.<hr>
+Please visit the <a href="https://guarded-brushlands-08736.herokuapp.com/">Note Taker site</a> hosted on Heroku.<hr>
 
 ## Authors
 
