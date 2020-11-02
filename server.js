@@ -18,6 +18,9 @@ app.use(express.static("public"));
 // ROUTES
 // =======================================================
 // index.html is the default file so no need to app.get
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 
 app.get("/notes", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/notes.html"));
@@ -37,11 +40,10 @@ console.log(notesDb);
 
 app.post("/api/notes", (req, res) => {
   let newNote = req.body;
-  console.log(newNote);
   // generate unique id using the date and time
   // https://day.js.org/docs/en/display/format
   let dateTimeNow = dayjs().format("DDMMYYYYTHHmmss");
-  console.log(dateTimeNow);
+  console.log("This is your unique id: " + dateTimeNow);
   newNote.id = dateTimeNow;
 
   notesDb.push(newNote);
@@ -62,7 +64,7 @@ app.post("/api/notes", (req, res) => {
 app.delete("/api/notes/:id", function (req, res) {
   console.log(req.params);
   const chosenID = req.params.id;
-  console.log(chosenID);
+  console.log("You are chosing to delete this ID " + chosenID);
   // Read all notes and filters the notes that do not match the chosenID
   const newDB = notesDb.filter((savedNote) => savedNote.id != chosenID);
   // your formula would be to return each value into the new array if it does not match the id of the record to be deleted
@@ -76,7 +78,7 @@ app.delete("/api/notes/:id", function (req, res) {
       // return true;
     }
   );
-  res.send(newDB);
+  res.send(notesDb);
 });
 
 // Default Route
