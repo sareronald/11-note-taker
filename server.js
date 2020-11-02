@@ -34,10 +34,6 @@ app.get("/api/notes", (req, res) => {
 
 // ADD & SAVE from DATABASE
 // =======================================================
-// Read the notes DB file - this data source holds an array of information
-let notesDb = JSON.parse(fs.readFileSync("./db/db.json"));
-console.log(notesDb);
-
 app.post("/api/notes", (req, res) => {
   let newNote = req.body;
   // generate unique id using the date and time
@@ -45,7 +41,8 @@ app.post("/api/notes", (req, res) => {
   let dateTimeNow = dayjs().format("DDMMYYYYTHHmmss");
   console.log("This is your unique id: " + dateTimeNow);
   newNote.id = dateTimeNow;
-
+  // Read the notes DB file
+  let notesDb = JSON.parse(fs.readFileSync("./db/db.json"));
   notesDb.push(newNote);
 
   fs.writeFileSync(
@@ -65,8 +62,10 @@ app.delete("/api/notes/:id", function (req, res) {
   console.log(req.params);
   const chosenID = req.params.id;
   console.log("You are chosing to delete this ID " + chosenID);
+  let notesDb = JSON.parse(fs.readFileSync("./db/db.json"));
   // Read all notes and filters the notes that do not match the chosenID
   const newDB = notesDb.filter((savedNote) => savedNote.id != chosenID);
+  console.log("new db", newDB);
   // your formula would be to return each value into the new array if it does not match the id of the record to be deleted
   // Writes remaining notes to db.json
   fs.writeFileSync(
@@ -78,7 +77,7 @@ app.delete("/api/notes/:id", function (req, res) {
       // return true;
     }
   );
-  res.send(notesDb);
+  res.send(newDB);
 });
 
 // Default Route
