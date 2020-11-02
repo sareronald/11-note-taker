@@ -5,7 +5,10 @@ This Note Taker can be used to write, save and delete notes. It is designed for 
 
 ## Project Objective
 
-To create a functional application that generates
+To create a functional application that allows the user to:
+- create and save notes
+- view previously saved notes
+- delete previously saved notes
 
 ## User Story
 
@@ -15,11 +18,9 @@ SO THAT I can organise my thoughts and keep track of tasks I need to complete
 
 ## Acceptance Criteria
 
-Application should allow users to create and save notes.
-
-Application should allow users to view previously saved notes.
-
-Application should allow users to delete previously saved notes.
+* Application should allow users to create and save notes.
+* Application should allow users to view previously saved notes.
+* Application should allow users to delete previously saved notes.
 
 ## Contents
 
@@ -54,6 +55,9 @@ This responsive application consists of the following files:
 
 #### Walkthrough video of VS Code and localhost
 ![notetaker-walkthroughvideo](https://user-images.githubusercontent.com/67722377/97822289-8187bd80-1d09-11eb-8b82-992f35a75974.gif)
+
+#### Walkthrough video of the app hosted on Heroku
+![notetaker-walkthrough-online](https://user-images.githubusercontent.com/67722377/97864548-def92a00-1d5c-11eb-980e-08081a0d5bef.gif)
 
 ## Licence
 * [Apache License 2.0](http://www.apache.org/licenses/)
